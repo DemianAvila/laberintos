@@ -71,7 +71,12 @@ function generateLab(){
 	laberinto.set_item(sal_r,sal_c,'s');
 
 	//visualización
-	var a=0;  
+	var a=[];
+	// generar fila por fila
+	for (var i=0; i<laberinto.get_num_rows();i++){
+		a.push(i);
+	}
+	
 	var b=0;
 	var back_col=laberinto.get_num_cols();
 	var back_row=laberinto.get_num_rows();
@@ -79,26 +84,23 @@ function generateLab(){
 	function update() { 
 	  setTimeout(function() { 
 	  	//console.log(back_row + "   "+ back_col);
-		if (laberinto.get_item(a,b)!=null){
-			actualizaCuadricula(b,a, anchoCuadro, largoCuadro, "#FFFFFF");
-			//entrada verde
-		    actualizaCuadricula(ent_c,ent_r, anchoCuadro, largoCuadro, "#2EFE2E");
-		    //salida roja
-		    actualizaCuadricula(sal_c,sal_r, anchoCuadro, largoCuadro, "#FF0000");
+		for (var i=0; i<a.length;i++){
+			if (laberinto.get_item(a[i],b)!=null){
+				actualizaCuadricula(b,a[i], anchoCuadro, largoCuadro, "#FFFFFF");
+				//entrada verde
+			    actualizaCuadricula(ent_c,ent_r, anchoCuadro, largoCuadro, "#2EFE2E");
+			    //salida roja
+			    actualizaCuadricula(sal_c,sal_r, anchoCuadro, largoCuadro, "#FF0000");
+			}
 		}
 //		else if (laberinto.get_item(back_row,back_col)!=null){
 //			actualizaCuadricula(back_col,back_row, anchoCuadro, largoCuadro, "#FFFFFF");
 //		}
 		
 	    b++;
-//	    back_col--;
-	    if (b==(laberinto.get_num_cols())&& ((a<=valorRow))){
-	    	b=0;
-//	    	back_col=laberinto.get_num_cols();
-//	    	back_row--;
-	    	a++;
-	    }
-	    if ((a<=valorRow)&&(b<=laberinto.get_num_cols())) { 
+//	    
+	    
+	    if (b<=laberinto.get_num_cols()) { 
 	      update(); 
 	    }
 	    else{
